@@ -1,0 +1,76 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Build output
+dist/
+build/
+*.js.map
+*.tsbuildinfo
+
+# Coverage
+coverage/
+.nyc_output/
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache
+.cache/
+
+# Testing
+junit.xml
+
+# Package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# TypeScript
+*.tsbuildinfo
+
+# Database files (if applicable)
+*.db
+*.sqlite
+dump.rdb
+
+# Temporary files
+*.tmp
+*.temp
+
+# Debug files
+debug/
+*.pid
+
+# Session files
+*.session
+
+# Optional
+*.seed
+*.dump
+
+# Docker
+docker-compose.override.yml
+
+# macOS
+.DS_Store

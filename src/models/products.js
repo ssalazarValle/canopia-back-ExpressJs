@@ -13,6 +13,19 @@ const ProductModel = {
   },
 
   /**
+   * Obtener producto por ID
+   * @param {number} id - ID del producto
+   * @returns {Promise<Object|null>} Producto encontrado o null
+   */
+  async getById(id) {
+    const [rows] = await pool.query(
+      'SELECT * FROM products WHERE id = ? AND status = 1',
+      [id]
+    );
+    return rows[0] || null;
+  },
+
+  /**
    * Crear nuevo producto
    * @param {Object} productData - Datos del producto
    * @param {string} productData.name - Nombre del producto

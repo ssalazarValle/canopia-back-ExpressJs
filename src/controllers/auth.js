@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import pool from '../config/db.js';
-import { generateToken } from '../utils/jwt.js';
+import { generateToken, getTokenExpiration } from '../utils/jwt.js';
 
 export const login = async (req, res) => {
   try {
@@ -18,7 +18,9 @@ export const login = async (req, res) => {
     }
 
     const token = generateToken(user.id, user.role);
-    res.json({ token });
+    const tokenExpiration = await getTokenExpiration(token);
+    console.log("🚀 ~ login ~ tokenExpiration:", tokenExpiration)
+    res.json(token);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });

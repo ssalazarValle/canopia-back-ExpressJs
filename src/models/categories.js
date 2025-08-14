@@ -33,6 +33,19 @@ const CategoryModel = {
     return rows;
   },
 
+  /**
+   * Obtener categoría por nombre
+   * @param {string} name - Nombre de la categoría
+   * @returns {Promise<Object|null>} Categoría encontrada o null
+   */
+  async findByName(name) {
+    const [rows] = await pool.query(
+      'SELECT * FROM categories WHERE name = ? AND status = 1',
+      [name]
+    );
+    return rows[0] || null;
+  },
+
 
   /**
    * Obtener categoría por ID

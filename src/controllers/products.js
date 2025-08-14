@@ -16,27 +16,36 @@ export default {
     }
   },
 
-  async createProduct(req, res) {
+async createProduct(req, res) {
     const categoryExists = await CategoryModel.findByName(req.body.category_name);
-    console.log("🚀 ~ createProduct ~ categoryExists:", categoryExists);
-
-    if (categoryExists === null) {
-      return res.status(404).json({ error: 'Invalid category' });
+    if (!categoryExists) {
+        return res.status(404).json({ error: 'Invalid category' });
     }
 
     try {
-      const productData = {
-        ...req.body,
-        category_id: categoryExists.id 
-      };
+        const productData = {
+            ...req.body,
+            category_id: categoryExists.id 
+        };
+        
+        const productId = await ProductModel.create(productData);
+  
+        const newProduct = await ProductModel.getById(productId);
+        
+        if (!newProduct) {
+            return res.status(500).json({ 
+                error: 'Product was created but could not be retrieved',
+                productId: productId 
+            });
+        }
+        return res.status(201).json(newProduct);
 
-      const productId = await ProductModel.create(productData);
-      const newProduct = await ProductModel.getById(productId);
-
-      res.status(201).json(newProduct);
     } catch (error) {
-      res.status(500).json({ error: error.sqlMessage || 'Failed to create product' });
+        return res.status(500).json({ 
+            error: error.sqlMessage || 'Failed to create product',
+            details: error.message 
+        });
     }
-  }
+}
 };
 
